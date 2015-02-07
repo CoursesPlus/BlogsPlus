@@ -10,5 +10,12 @@
 	"permissions": [
 		"tabs",
 		"*://*.dalton.org"
-	]
+	],
+	"content_scripts": [
+    {
+      "matches": ["*://blogs.dalton.org/*"],
+      "css": ["index.css"],
+      "js": ["jquery.js", "inject.js"]
+    }
+  ],
 }
