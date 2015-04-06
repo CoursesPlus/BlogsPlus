@@ -5,11 +5,14 @@
 
 }
 .calendar-daysOfWeek {
-
+	
 }
 .calendar-notInMonth {
 
 }
 .calendar-day {
-	
+
+}
+.calendar-eventDay {
+	background-color: green;
 }

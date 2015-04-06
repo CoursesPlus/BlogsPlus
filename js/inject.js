@@ -14,7 +14,7 @@ function weekCount(year, month_number) {
 
     return Math.ceil( used / 7);
 }
-function getCalendarHTML(month, year) {
+function getCalendarHTML(month, year, events) {
 	var html = "";
 
 	var daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -67,7 +67,13 @@ function getCalendarHTML(month, year) {
 					}
 				}
 				for (;weekDayIndex < daysInWeek; weekDayIndex++) {
-					html += '<td class="calendar-day">';
+					html += '<td class="calendar-day ';
+					console.log(curDay);
+					if (events[curDay].length != 0) {
+						html += 'calendar-eventDay';
+					}
+					
+					html += '">';
 					html += curDay;
 					html += '</td>';
 					curDay++;
@@ -93,16 +99,31 @@ $(document).ready(function() {
 	if (window.location.href.replace("http://", "").replace("https://", "") == "blogs.dalton.org/mines/") {
 		$.get("https://blogs.dalton.org/mines/feed/?cat=195058", function(data) {
 			var $data = $(data);
+			var events = {};
+			console.log("MONTH LENGTH: ");
+			console.log(getMonthLength(4, 2015));
+			console.log("STARTING EVENT ARRAY ADD");
+			for (var i = 1; i < getMonthLength(4, 2015); i++) {
+				console.log(i);
+				events[i] = [];
+			}
+			console.log("ENDING EVENT ARRAY ADD");
 			$data.find("item").each(function() {
 				var thisEntryDate = new Date($(this).children("pubDate").text());
+				var i = 0;
+				
+				console.log(thisEntryDate.getDate());
+				events[thisEntryDate.getDate()].push({
+					title: $(this).children("title").text(),
+					date: thisEntryDate.toDateString(),
+					link: $(this).children("link").text()
+				});
+
 				console.log($(this).children("title").text());
 				console.log(thisEntryDate.toDateString());
 				console.log($(this).children("link").text());
-				if(thisEntryDate.getMonth() == 2) {
-					console.log("MARCH");
-				}
 			});
-			$("body").append(getCalendarHTML(3, 2015));
+			$("body").append(getCalendarHTML(3, 2015, events));
 		});
 	}
 });
