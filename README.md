@@ -1,4 +1,4 @@
-BlogsMinus
+BlogsPlus
 ---
 An extension to make blogs.dalton.org look nicer. This is because some High School teachers don't use Courses but instead just post on blogs.dalton.org, a WordPress multisite.
 
